@@ -1,0 +1,12 @@
+{% extends "movie/admin_base.html" %}
+
+{% block content %}
+
+{% for movie in movies %}
+
+<img src="{{movie.m_image.url}}" alt="" style="height: 350px; width: 250px; border: 5px solid #555;">
+
+
+{% endfor %}
+
+{% endblock %}

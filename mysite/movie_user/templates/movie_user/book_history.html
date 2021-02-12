@@ -1,0 +1,54 @@
+{% extends "movie_user/baseuser.html" %}
+{% load static %}
+
+
+{% block head %}
+<br>
+<ul class="nav">
+    <li><a href="{% url 'user_side:dashboard' %}" class=""><i class="lnr lnr-home"></i> <span>Dashboard</span></a></li>
+    <li><a href="{% url 'user_side:bookhistory' %}" class="active"><i class="lnr lnr-inbox"></i> <span>Booking History</span></a></li>
+
+    <li><a href="{% url 'user_side:download' %}" class=""><i class="lnr lnr-download"></i> <span>Download Ticket</span></a></li>
+
+
+
+
+</ul>
+
+{% endblock %}
+
+{% block content %}
+<style>
+    table {
+      font-family: arial, sans-serif;
+      border-collapse: collapse;
+      width: 100%;
+    }
+    
+    td, th {
+      border: 1px solid #dddddd;
+      text-align: left;
+      padding: 8px;
+    }
+    
+    tr:nth-child(even) {
+      background-color: #dddddd;
+    }
+    </style>
+
+    <table>
+
+        {% for row in book_history %}
+    
+            <tr>
+                <td>{{row.movie_name}}</td>
+                <td>{{row.date}}</td>
+                <td>{{row.seats}}</td>
+            </tr>
+    
+        {% endfor %}
+    
+    </table>
+
+
+{% endblock %}

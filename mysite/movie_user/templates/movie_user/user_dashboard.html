@@ -1,0 +1,30 @@
+{% extends "movie_user/baseuser.html" %}
+
+{% block head %}
+<br>
+<ul class="nav">
+    <li><a href="{% url 'user_side:dashboard' %}" class="active"><i class="lnr lnr-home"></i> <span>Dashboard</span></a></li>
+    <li><a href="{% url 'user_side:bookhistory' %}" class=""><i class="lnr lnr-inbox"></i> <span>Booking History</span></a></li>
+
+    <li><a href="{% url 'user_side:download' %}" class=""><i class="lnr lnr-download"></i> <span>Download Ticket</span></a></li>
+    <!-- <li><a href="notifications.html" class=""><i class="lnr lnr-user"></i> <span>Users</span></a></li> -->
+
+
+
+</ul>
+    
+{% endblock %}
+
+{% block content %}
+<style>
+
+</style>
+{% for movie in movies %}
+
+        <a href="{% url 'user_side:selectseats' movie.pk %}"><img src="{{movie.m_image.url}}" alt="" style="height: 350px; width: 270px; border: 5px solid #555;"></a>&nbsp;&nbsp;&nbsp
+
+
+
+{% endfor %}
+
+{% endblock %}

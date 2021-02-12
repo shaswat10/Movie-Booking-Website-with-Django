@@ -1,0 +1,44 @@
+<html>
+
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</head>
+    <body style="background-color: #3FBCAE">
+        <br>
+            <div style="width: 50%; margin-left: 400px;">
+                <div class="container">
+                    <div class="container">
+                        <h1 style="color: #E7F2F8;">Registration Page:</h1>
+                        <div class="jumbotron" style="background-color:#E7F2F8">
+                            <form method="POST">
+                                {% csrf_token %}
+
+                                {{form.username.label}}
+                                {{form.username}}
+                                <br>
+                                {{form.email.label}}
+                                {{form.email}}
+                                <br>
+                                {{form.password1.label}}
+                                {{form.password1}}
+                                <br>
+                                {{form.password2.label}}
+                                {{form.password2}}
+
+                                <br>
+                                <input type="submit" class="btn btn-success" value="Register" style="width: 100%;">
+                            </form>
+                            {{form.errors}}
+                            <div>
+                                <a href="{% url 'user_side:login' %}" style="margin-left: 47%;">Login</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+    </body>
+</html>

@@ -1,0 +1,102 @@
+{% extends "movie_user/baseuser.html" %}
+{% load static %}
+
+{% block head %}
+<br>
+<ul class="nav">
+    <li><a href="{% url 'user_side:dashboard' %}" class="active"><i class="lnr lnr-home"></i> <span>Dashboard</span></a></li>
+    <li><a href="{% url 'user_side:bookhistory' %}" class=""><i class="lnr lnr-inbox"></i> <span>Booking History</span></a></li>
+
+    <li><a href="{% url 'user_side:download' %}" class=""><i class="lnr lnr-download"></i> <span>Download Ticket</span></a></li>
+   
+
+
+
+</ul>
+
+{% endblock %}
+
+
+{% block content %}
+
+<!-- <button class="btn btn-success">testbutton</button> -->
+
+<!-- <p id="demo" value="cc"></p> -->
+
+<div class="container">
+
+    <div class="container">
+        
+        
+        <form method="POST">
+            {% csrf_token %}
+            <label for="form-control" style="font-weight: bold;">Seat Numbers:</label>
+
+            <!-- <textarea disabled class="form-control" id="demo" name="booked_seats" rows="3"></textarea> -->
+            <!-- <input type="textarea" disabled class="form-control" id="demo" name="booked_seats" rows="3"> -->
+            <input type="text" readonly="readonly"  class="form-control" id="demo" name="booked_seats" value="">
+
+            <label for="form-control" style="font-weight: bold;">Number of Seats:</label>
+            <input type="text" readonly="readonly" class="form-control" id="count" name="count" value="">
+        <br>
+        <div class="jumbotron">
+            {% for seat,val in seats.items %}
+            
+            <!-- {{val}} -->
+            {% if val >= 1 %}
+
+            <input type="image" onclick="bookSeat(this.id)" disabled = true id="{{seat}}" value="{{seat}}" src="{% static 'bk.png' %}" style="height: 80px; width: 80px;"/>
+
+            
+            {% else %}
+
+            <input type="image" onclick="bookSeat(this.id)"  id="{{seat}}" value="{{seat}}" src="{% static 'seat.png' %}" style="height: 80px; width: 80px;"/>
+
+            <!-- <button onclick="bookSeat(this.id)" class="btn btn-success" id="{{seat}}" value="{{seat}}" ">testbutton</button> -->
+            {% endif %}
+ 
+
+        {% endfor %}
+        </div>
+        <div class="container">
+
+
+            <button class="btn btn-danger" onclick="location.reload()" style="width: 70%; position: absolute; margin-left: 120px;">Clear Booked seats</button>
+            <br>
+            <br>
+            <!-- <button class="btn btn-success" style="width: 70%; position: absolute;margin-left: 120px;">Confirm Booking</button> -->
+            <input type="submit" class="btn btn-success" style="width: 70%; position: absolute;margin-left: 120px;" value="Confirm Booking">
+        </form>
+            <br>
+        </div>
+    </div>
+</div>
+<br>
+<br>
+
+
+
+<script>
+    function bookSeat(id)
+    {
+
+        document.getElementById('demo').value += document.getElementById(id).value+",";
+        
+        document.getElementById(id).src = "{% static 'booked.png' %}";
+        document.getElementById(id).disabled = true;
+
+        var val = document.getElementById("count").value;
+
+        if(val)
+        {
+            val = parseInt(val)+1;
+            document.getElementById("count").value = val;
+        }
+        else{
+            document.getElementById("count").value = 1;
+        }
+    }
+</script>
+
+
+{% endblock %}

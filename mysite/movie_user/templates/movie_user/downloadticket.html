@@ -1,0 +1,91 @@
+{% extends "movie_user/baseuser.html" %}
+{% load static %}
+{% block head %}
+<br>
+<ul class="nav">
+    <li><a href="{% url 'user_side:dashboard' %}" class=""><i class="lnr lnr-home"></i> <span>Dashboard</span></a></li>
+    <li><a href="{% url 'user_side:bookhistory' %}" class=""><i class="lnr lnr-inbox"></i> <span>Booking History</span></a></li>
+
+    <li><a href="{% url 'user_side:download' %}" class="active"><i class="lnr lnr-download"></i> <span>Download Ticket</span></a></li>
+  
+
+
+
+</ul>
+
+
+
+{% endblock %}
+
+
+{% block content %}
+<style>
+    *{
+        margin: 0px;
+        padding: 0px;
+    }
+    .card{
+        width: 50%;
+        /* display: inline-block; */
+        box-shadow: 2px 2px 20px black;
+        border-radius: 5px; 
+        margin: 2%;
+        background-color: gainsboro;
+        /* border-right: 3px dotted;
+        margin-right: 50px; */
+    }
+
+    .image
+    {
+        border-top-left-radius: 5px;
+        border-top-right-radius: 5px;
+        width: 100%;
+    }
+
+
+
+
+</style>
+
+
+    {% for row in ticket_detail %}
+   
+<a href="{% url 'user_side:ticket' row.id %}" id="{{row.id}}"> 
+    <div class="card" >
+        
+     
+        <div class="contain">
+            <div class="image" style="background-color: red;">
+                <h2 style="padding: 10px; color: white; font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">Cinema: {{row.user.username}}</h2>
+            </div>
+    
+            <div class="des">
+                <img src="{% static 'ticket.png' %}" style="width: 30%; height: 30%; padding-left: 9px; padding-bottom: 9px; " alt="">
+                <div style="float: right; margin-right: 45%;">
+                    <h2 >{{row.movie_name}}</h2>
+                    <h4 >{{row.date}}</h4>
+                    <h4 >Seats: {{row.seats}}</h4>
+                </div>
+                
+            </div>
+        </div>
+
+    </div>
+
+
+</a>
+
+    {% endfor %}
+
+    <script>
+            window.onload = function(){
+                document.getElementById("{{row.id}}").addEventListener("click",()=>{
+                    const tic = this.document.getElementById("{{row.id}}");
+                    console.log(tic);
+                    console.log(window);
+                    html2pdf().from(tic).save();
+                })
+            }
+    </script>
+
+{% endblock %}

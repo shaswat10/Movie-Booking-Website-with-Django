@@ -1,0 +1,83 @@
+{% extends "movie_user/baseuser.html" %}
+
+{% block head %}
+<br>
+<ul class="nav">
+    <li><a href="{% url 'user_side:dashboard' %}" class="active"><i class="lnr lnr-home"></i> <span>Dashboard</span></a></li>
+    <li><a href="{% url 'user_side:bookhistory' %}" class=""><i class="lnr lnr-inbox"></i> <span>Booking History</span></a></li>
+
+    <li><a href="{% url 'user_side:download' %}" class=""><i class="lnr lnr-download"></i> <span>Download Ticket</span></a></li>
+   
+
+
+
+</ul>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <img src="{{movies.m_image.url}}" alt="" style="height: 400px; width: 600px; border: 5px solid #555;">
+    <br>
+    <h1 style="font-weight: bold; font-style: unset; font-stretch:wider;">{{movies.m_name}}</h1>
+    
+    <div>
+            {% for data in data_set %}
+        <div class="jumbotron" style="background-color:lightblue;">
+
+                <form method="POST">
+
+                    {% csrf_token %}
+                                <label for="" style="font-weight: bold;">Start Date:</label>
+                    <input type="text" readonly style="font-weight: bold;" value="{{data.start_time}}">
+                    <!-- <p style="font-weight: bold;">{{data.start_time}} </p> -->
+
+                    <br>
+                    <label for="e_date" style="font-weight: bold;">End Date:</label> 
+                    &nbsp;&nbsp;<input type="text" class="" readonly style="font-weight: bold;" value="{{data.end_time}} "> 
+                    <!-- <p style="font-weight: bold;" id="e_date">{{data.end_time}}  </p> -->
+
+                    <br>
+
+                    <label for="" style="font-weight: bold;">Time:</label>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        {% if data.show == '1' %} 
+                        <!-- <p style="font-weight: bold;">Morning</p>  -->
+                        <input type="text" readonly style="font-weight: bold;" name="tm" value="Morning"> 
+                        {% endif %}
+
+                        {% if data.show == '2' %} 
+                        <!-- <p style="font-weight: bold;">AfterNoon</p>  -->
+                        <input type="text" readonly style="font-weight: bold;" name="tm" value="AfterNoon"> 
+                        {% endif %}
+
+                        {% if data.show == '3' %}
+                        <!-- <p style="font-weight: bold;">Evening</p> -->
+                        <input type="text" readonly style="font-weight: bold;" name="tm" value="Evening"> 
+                        {% endif %}
+
+                        {% if data.show == '4' %} 
+                        <!-- <p style="font-weight: bold;">Night</p>  -->
+                        <input type="text" readonly style="font-weight: bold;" name="tm" value="Night"> 
+                        {% endif %}
+                        <br>
+                        <label for="">Cost:</label>
+                        <input type="text" readonly class="form-control" style="width: 100px; font-size: large; border-width: 5px;font-weight: bold; border-color: #555;" value="{{data.price}}/-">
+                    <!-- <label for="">Cost:</label> <p style="font-weight: bold;">{{data.price}}</p> -->
+
+                        <input type="date" required class="form-control" id="" style="width:140px;" name="datee">
+
+                        <br>
+                    <input type="submit" class="btn btn-success" value="book">
+                </form>
+        
+        </div>
+
+    {% endfor %}
+    </div>
+
+
+</div>
+
+{% endblock %}
