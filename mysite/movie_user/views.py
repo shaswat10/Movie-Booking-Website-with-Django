@@ -15,26 +15,6 @@ import urllib
 from django.urls import reverse
 from itertools import chain
 from operator import attrgetter
-# Create your views here.
-
-
-############Validation##################################
-
-
-# class ValidationData():
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 #####################################################
@@ -42,7 +22,7 @@ from operator import attrgetter
 
 
 
-
+####### User register page#####
 def registerPage(request):
     form = forms.CreateUserForm()
 
@@ -62,6 +42,8 @@ def registerPage(request):
     return render(request, 'movie_user/register.html', context)
 
 
+
+##### User Login page#########
 def loginPage(request):
 
     if request.method == 'POST':
@@ -98,7 +80,7 @@ def userLogout(request):
 
 
 
-# Movie seating arrangement page//////////////////////////////////////////////////////
+# Movie seating arrangement page here user will be able to select particular seat number to book it//////////////////////////////////////////////////////
 class BookTickets(View):
     form_class = forms.BookedSeatsForm
     initial = {'key': 'value'}
@@ -133,7 +115,7 @@ class BookTickets(View):
         # print(request.session['user'].id)
         new_dict = {val:0 for val in range(60)} 
         
-
+###########See if previously any seats are booked for this particular show#############
         if models.BookedSeatsModel.objects.filter(date=date_s, time=time_fld, movie_name = movie_name).exists():
         
             bookseats = models.BookedSeatsModel.objects.get(date=date_s, time=time_fld, movie_name = movie_name) 
@@ -186,9 +168,7 @@ class BookTickets(View):
             print(time_s)
             print(date_s)  
             
-            # print(request.session['user'].id)
-            # user = User.objects.get(id = request.session['user'].id)
-            # datee = '2021-02-02'
+           ############Saving booked seats data################
             if models.BookedSeatsModel.objects.filter(movie_name=movie_name, date=date_s, time=time_fld).exists():
                 print("same")
                 obj1 = models.BookedSeatsModel.objects.get(movie_name=movie_name, date=date_s, time=time_fld)
@@ -229,7 +209,7 @@ class UserDashboard(generic.ListView):
         context['movies'] = movies
         return context
 
-
+###########Here the user will select a particular show for which he will be redirected to seat booking page############
 class BuyTicket(generic.ListView):
     template_name = "movie_user/buyticket.html"
     model = SetMovie
@@ -270,7 +250,7 @@ class BuyTicket(generic.ListView):
 
 
 
-
+############ User will be able to see all his/her previous bookings done #################
 class BookHistory(generic.ListView):
 
     context_object_name = 'book_history'
@@ -280,7 +260,7 @@ class BookHistory(generic.ListView):
 
     template_name = "movie_user/book_history.html"
 
-
+################## User can download the ticket booked ##########################
 class DownloadTicket(generic.ListView):
 
     context_object_name = 'ticket_detail'   
@@ -290,7 +270,7 @@ class DownloadTicket(generic.ListView):
 
     template_name = "movie_user/downloadticket.html"
 
-
+########### Single ticket download page################
 class Ticket(generic.DetailView):
 
     context_object_name = 'row'
