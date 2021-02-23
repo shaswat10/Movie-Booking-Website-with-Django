@@ -11,7 +11,7 @@ from movie_user.models import BookedSeatsModel
 from django.http import JsonResponse
 # Create your views here.
 
-
+############ADmin login page######################
 class LoiginAdmin(View):
     template_name = "movie/admin_login.html"
 
@@ -43,6 +43,7 @@ def adminLogout(request):
     return redirect('../login/')
 
 
+##########ADmin dashboard page##########
 class Dashboard(generic.ListView):
     model_add = models.MovieMaster
     model_set = models.SetMovie
@@ -59,13 +60,15 @@ class Dashboard(generic.ListView):
         return context
 
 
-
+########This page will be used by admin for adding movies to system when then will be used for setting shows####################
 class AddMovies(generic.CreateView):  
     form_class = forms.AddMovieForm
     model = models.MovieMaster
     template_name = "movie/addmovies.html"
     # fields = '__all__'
 
+    
+    ###############From the list of movies added admin can set show for particular movie############################
 class SetMovies(generic.CreateView):
     form_class = forms.SetMovieForm
     model = models.SetMovie
@@ -81,16 +84,3 @@ class SetMovies(generic.CreateView):
 
 
 
-# def movie_chart(request):
-#     labels = []
-#     data = []
-
-#     queryset = BookedSeatsModel.objects.all()
-#     for entry in queryset:
-#         labels.append(entry['movie_name'])
-#         data.append(entry['number'])
-    
-#     return JsonResponse(data={
-#         'labels': labels,
-#         'data': data,
-#     })
