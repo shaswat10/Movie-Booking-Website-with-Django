@@ -1,0 +1,100 @@
+class Solution {
+public:
+    
+    int* get_left_largest(vector<int>& height)
+    {
+        int size_ht = height.size();
+        
+        int left_largest[height.size()];
+        
+        stack<int> stk;
+        
+        for(int i=0; i< size_ht; i++)
+        {
+            if(stk.empty())
+            {
+                left_largest[i] = 0;
+                stk.push(height[i]);
+            }
+            else
+            {
+                while(!stk.empty() && stk.top() < height[i])
+                {
+                    stk.pop();
+                }
+                
+                if(stk.empty())
+                {
+                    left_largest[i] = 0;
+                    
+                }
+                else
+                {
+                    left_largest[i] = stk.top();
+                }
+                
+                stk.push(left_largest[i]);
+            }
+        }
+        
+        return left_largest;
+    }
+    
+    
+    int* get_right_largest(vector<int>& height)
+    {
+        int size_ht = height.size();
+        
+        int right_largest[height.size()];
+        
+        stack<int> stk;
+        
+        for(int i=size_ht-1; i>=0; i--)
+        {
+            if(stk.empty())
+            {
+                right_largest[i] = 0;
+                stk.push(height[i]);
+            }
+            else
+            {
+                while(!stk.empty() && stk.top() < height[i])
+                {
+                    stk.pop();
+                }
+                
+                if(stk.empty())
+                {
+                    right_largest[i] = 0;
+                    
+                }
+                else
+                {
+                    right_largest[i] = stk.top();
+                }
+                
+                stk.push(right_largest[i]);
+            }
+        }
+        
+        return right_largest;
+    }
+    
+    
+    int trap(vector<int>& height) {
+        
+        int ans;
+        
+        int* left_largest = get_left_largest(heigth);
+        int* right_largest = get_right_largest(height);
+        
+        h_size = height.size();
+        
+        for(int i=0; i < h_size; i++)
+        {
+                ans += min(left_largest[i], right_largest[i]);
+        }
+        
+        return ans;
+    }
+};
